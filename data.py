@@ -1,9 +1,7 @@
-
-def get_standart_password():
-    return "1111111111"
-
-
-def get_existing_user_data():
+class ExistingUserData():
+    standart_password = "1111111111"
     exist_email = "oksanabelotelova1@yandex.ru"
     exist_password = "1111111111"
-    return exist_email, exist_password
+
+class URLs():
+    test_url = 'https://qa-desk.stand.praktikum-services.ru'

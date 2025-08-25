@@ -2,13 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from locators import Locators
-from data import get_existing_user_data
+from data import ExistingUserData
+
 
 class TestUserLogin:
 
     def test_login_exist_user(self,driver):
-        exist_email, exist_password = get_existing_user_data()
-
+        exist_email = ExistingUserData.exist_email
+        exist_password = ExistingUserData.exist_password
         login_button = driver.find_element(*Locators.LOGIN_BUTTON)
         login_button.click()
 
@@ -28,7 +29,7 @@ class TestUserLogin:
 
         # здесь есть баг - редиректа на главную страницу непроисходит
         assert driver.current_url == 'https://qa-desk.stand.praktikum-services.ru' 
-        assert avatar.is_displayed() is True
-        assert user_name.is_displayed() is True
+        assert avatar.is_displayed()
+        assert user_name.is_displayed()
         
 

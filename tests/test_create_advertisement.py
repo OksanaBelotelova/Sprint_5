@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from locators import Locators
-from data import get_existing_user_data
+from data import ExistingUserData
 
 
 class TestCreateAdvertisement:
@@ -13,10 +13,11 @@ class TestCreateAdvertisement:
 
         message = driver.find_element(*Locators.MESSAGE_POPUP)
 
-        assert message.is_displayed() is True
+        assert message.is_displayed()
 
-    def test_create_advertisement_logged_user_(self, driver):
-        exist_email, exist_password = get_existing_user_data()
+    def test_create_advertisement_logged_user_(self, driver): 
+        exist_email = ExistingUserData.exist_email
+        exist_password = ExistingUserData.exist_password
 
         login_button = driver.find_element(*Locators.LOGIN_BUTTON)
         login_button.click()
@@ -70,4 +71,4 @@ class TestCreateAdvertisement:
 
         my_advertisement = WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(Locators.MY_ADVERTISEMENTS))
 
-        assert my_advertisement.is_displayed() is True
+        assert my_advertisement.is_displayed()

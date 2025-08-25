@@ -2,12 +2,13 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from locators import Locators
-from data import get_existing_user_data
+from data import ExistingUserData
 
 
 class TestUserLogout:
     def test_user_logout(self, driver):
-        exist_email, exist_password = get_existing_user_data()
+        exist_email = ExistingUserData.exist_email
+        exist_password = ExistingUserData.exist_password
 
         login_button = driver.find_element(*Locators.LOGIN_BUTTON)
         login_button.click()
@@ -30,4 +31,4 @@ class TestUserLogout:
 
         assert user_name != True
         assert avatar != True
-        assert login_button.is_displayed() is True
+        assert login_button.is_displayed()

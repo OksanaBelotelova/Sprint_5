@@ -3,14 +3,13 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from locators import Locators
 from helpers import random_email
-from data import get_standart_password
-from data import get_existing_user_data
+from data import ExistingUserData
 
 
 class TestUserRegistration:
     def test_user_registration(self, driver):
         email = random_email()
-        password = get_standart_password()
+        password = ExistingUserData.standart_password
 
         login_button = driver.find_element(*Locators.LOGIN_BUTTON)
         login_button.click()
@@ -37,8 +36,8 @@ class TestUserRegistration:
         
         #здесь есть баг - редиректа на главную страницу не происходит
         assert driver.current_url == 'https://qa-desk.stand.praktikum-services.ru' 
-        assert avatar.is_displayed() is True
-        assert user_name.is_displayed() is True
+        assert avatar.is_displayed()
+        assert user_name.is_displayed()
 
     def test_user_registration_with_incorrect_email(self, driver):
 
@@ -60,13 +59,14 @@ class TestUserRegistration:
         input_confirm_passowrd_wrapper = driver.find_element(*Locators.INPUT_CONFIRM_PASSWORD_WRAPPER)
         
        
-        assert error_message.is_displayed() is True
+        assert error_message.is_displayed()
         assert input_email_wrapper.value_of_css_property('border') == '1px solid rgb(255, 105, 114)'
         assert input_password_wrapper.value_of_css_property('border') == '1px solid rgb(255, 105, 114)'
         assert input_confirm_passowrd_wrapper.value_of_css_property('border') == '1px solid rgb(255, 105, 114)'
 
     def test_user_registration_already_existing_user(self, driver):
-        exist_email, exist_password = get_existing_user_data()
+        exist_email = ExistingUserData.exist_email
+        exist_password = ExistingUserData.exist_password
 
         login_button = driver.find_element(*Locators.LOGIN_BUTTON)
         login_button.click()
@@ -92,7 +92,7 @@ class TestUserRegistration:
         input_confirm_passowrd_wrapper = driver.find_element(*Locators.INPUT_CONFIRM_PASSWORD_WRAPPER)
         
        
-        assert error_message.is_displayed() is True
+        assert error_message.is_displayed()
         assert input_email_wrapper.value_of_css_property('border') == '1px solid rgb(255, 105, 114)'
         assert input_password_wrapper.value_of_css_property('border') == '1px solid rgb(255, 105, 114)'
         assert input_confirm_passowrd_wrapper.value_of_css_property('border') == '1px solid rgb(255, 105, 114)'
